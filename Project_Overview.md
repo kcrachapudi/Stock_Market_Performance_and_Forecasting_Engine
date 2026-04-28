@@ -1,6 +1,6 @@
 📖 The Stock Market Performance and Forecasting Engine
 The Prologue: The Chaos of the Ticker
-Our story begins in the global financial markets—a world of high-velocity data and constant noise. Unlike the static "snapshots" of our previous project, stock data is a Living Stream.
+Our story begins in the global financial markets—a world of high-velocity data and constant noise. Unlike the static "snapshots" of our previous project, stock data is a Living Stream. 
 The Conflict: Markets are "Non-Stationary." A price at 10:00 AM might be driven by a breaking news alert, while the price at 2:00 PM is driven by institutional algorithmic trading.
 The Mission: To filter out the market "noise" and find the "signal"—the underlying trend that predicts where the price is headed.
 The Ending: A professional-grade dashboard that provides historical context, AI-driven projections, and a "Reality Check" through backtesting.
