@@ -146,3 +146,4 @@ if 'stock_df' in st.session_state:
                 st.plotly_chart(fig_bt, width='stretch')
 else:
     st.info("Enter a ticker in the sidebar and fetch data to start the market story.")
+ 

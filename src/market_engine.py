@@ -83,7 +83,7 @@ def run_forecast(df, periods=30):
     future = model.make_future_dataframe(periods=periods)
     forecast = model.predict(future)
     
-    return model, forecast
+    return model, forecast 
 
 def calculate_volatility(df):
     """
