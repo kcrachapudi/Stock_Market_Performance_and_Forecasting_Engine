@@ -63,3 +63,59 @@ def add_technical_indicators(df):
     df_copy['RSI'] = 100 - (100 / (1 + rs))
     
     return df_copy
+
+from prophet import Prophet
+
+def run_forecast(df, periods=30):
+    """
+    Phase 3 Engine: Trains an AI model on historical data 
+    to predict the next 30 days of price action.
+    """
+    # 1. Prepare data for Prophet (Specific naming required)
+    train_df = df[['Date', 'Close']].rename(columns={'Date': 'ds', 'Close': 'y'})
+    
+    # 2. Initialize and Train the Model
+    # We disable 'yearly_seasonality' to keep it focused on the 2-year trend
+    model = Prophet(daily_seasonality=True, yearly_seasonality=True)
+    model.fit(train_df)
+    
+    # 3. Create 'Future' dates and Predict
+    future = model.make_future_dataframe(periods=periods)
+    forecast = model.predict(future)
+    
+    return model, forecast
+
+def calculate_volatility(df):
+    """
+    Calculates the 20-day rolling volatility (Standard Deviation).
+    High volatility = Higher Risk.
+    """
+    # Percentage change of daily prices
+    returns = df['Close'].pct_change()
+    # Rolling standard deviation of those returns
+    volatility = returns.rolling(window=20).std() * (252**0.5) * 100 
+    return volatility.iloc[-1]
+
+def run_backtest(df):
+    """
+    Hides the last 30 days of data, trains the model, 
+    and compares the prediction to what actually happened.
+    """
+    # 1. Split: Hide the last 30 days
+    train_data = df[:-30] 
+    actual_data = df[-30:]
+    
+    # 2. Train on the older data
+    m = Prophet(daily_seasonality=True)
+    m.fit(train_data[['Date', 'Close']].rename(columns={'Date': 'ds', 'Close': 'y'}))
+    
+    # 3. Predict the 30 days we hid
+    future = m.make_future_dataframe(periods=30)
+    forecast = m.predict(future)
+    
+    # 4. Compare Prediction (yhat) to Actual (y)
+    comparison = forecast[['ds', 'yhat']].tail(30)
+    comparison['Actual'] = actual_data['Close'].values
+    comparison['Error (%)'] = abs((comparison['Actual'] - comparison['yhat']) / comparison['Actual']) * 100
+    
+    return comparison
