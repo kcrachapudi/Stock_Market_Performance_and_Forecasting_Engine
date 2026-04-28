@@ -1,4 +1,4 @@
-📖 The Time-Series Sentinel: A Market Forecasting Odyssey
+📖 The Stock Market Performance and Forecasting Engine
 The Prologue: The Chaos of the Ticker
 Our story begins in the global financial markets—a world of high-velocity data and constant noise. Unlike the static "snapshots" of our previous project, stock data is a Living Stream.
 The Conflict: Markets are "Non-Stationary." A price at 10:00 AM might be driven by a breaking news alert, while the price at 2:00 PM is driven by institutional algorithmic trading.
